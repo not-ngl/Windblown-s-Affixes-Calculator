@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/not-ngl/Affixes-odds-calculator.git"
+    "url": "git+https://github.com/not-ngl/Windblown-s-Affixes-Calculator.git"
   },
   "keywords": [],
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/not-ngl/Affixes-odds-calculator/issues"
+    "url": "https://github.com/not-ngl/Windblown-s-Affixes-Calculator/issues"
   },
-  "homepage": "https://github.com/not-ngl/Affixes-odds-calculator#readme",
+  "homepage": "https://github.com/not-ngl/Windblown-s-Affixes-Calculator#readme",
   "dependencies": {
     "luaparse": "^0.3.1",
     "node-fetch": "^3.3.2"
