@@ -25,6 +25,8 @@ All icons are served directly from the Windblown Wiki:
 - Trinket Icons: [Category:Trinket Icon Images](https://windblown.wiki.gg/wiki/Category:Trinket_Icon_Images)
 - Upgrade Icons: [Category:Upgrade Icon Images](https://windblown.wiki.gg/wiki/Category:Upgrade_Icon_Images)
 
+[Logo](https://windblown-logo-generator.vercel.app/?text=Affixes+calculator&font=LT+Museum&style=normal&offset=2&gc=%235100ff&gs=10&c1=%231ddcff&a1=1&c2=%23ff2dff&a2=1&c3=%23ffffff&a3=1&c4=%23b3ddf3&a4=1)
+
 ### Styling
 CSS variables and theme design copy-pasted from [Windblown Wiki Common.css](https://windblown.wiki.gg/wiki/MediaWiki:Common.css).
 
