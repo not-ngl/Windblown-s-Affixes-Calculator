@@ -62,6 +62,9 @@ Each formula handles a specific `(slots_available, slots_selected)` scenario. Fo
 
 The code includes numerous conditional checks like `if (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p` because the success probability (p) depends on how many Rare affixes remain in the pool. Before attributing p/q values, several validations ensure we don't assign a Rare-success-rate when zero Rares exist. Similar logic applies for p1, p2, p3 (second, third, fourth Rare draws). This defensive programming makes the code harder to read but prevents invalid probability states.
 
+### Uncommon Affixes
+When observing the frequency of generation of some affixes, it has been noticed that some of them were rarer than other: [see this message](https://discord.com/channels/1068465177139355658/1402764555091841024/1402764555091841024).
+
 ### Input Validation
 The UI prevents impossible selections before they reach the calculator:
 - Affix count cannot exceed available slots (enforced in `updateCheckboxStates()`)
