@@ -47,22 +47,31 @@ Feel free to submit issues or enhancement requests. If calculation results seem 
 - Lua modules are fetched, parsed, and converted to JSON for client-side consumption
 - All icons are hotlinked directly from the wiki
 
-### Probability Engine
+### Probability Engine 
 Calculations use combinatorial formulas that account for:
 - Slot availability (based on gear level: 0–4 slots)
 - Rarity tiers (Common, Uncommon, Rare with weighted pools)
-- Upgrade mechanics (levels 0–3 with distinct p/q success rates)
-  | Upgrade | p (Rare) | q (Common/Uncommon) | Max Rare |
-  |---------|----------|---------------------|----------|
-  | 0 | 0 | 1 | 0 |
-  | 1 | 0.05 | 0.95 | 1 |
-  | 2 | 0.10 | 0.90 | 1 |
-  | 3 | 0.10 | 0.90 | 4 |
+- Upgrade mechanics (levels 0–3 with distinct p/q success rates and chaining rules)
+
+  | Upgrade | p (Rare) | q (Common/Uncommon) | Max Rare | Roll Behavior |
+  |---------|----------|---------------------|----------|---------------|
+  | 0 | 0 | 1 | 0 | No rare affixes possible |
+  | 1 | 0.05 | 0.95 | 1 | Single flat 5% chance regardless of slot count |
+  | 2 | 0.10 | 0.90 | 1 | Single flat 10% chance regardless of slot count |
+  | 3 | 0.10 | 0.90 | 4 | Conditionally chained (10% for 1st, 1% for 2nd, 0.1% for 3rd, 0.01% for 4th) |
+
+#### Rare Affixes III Chaining (v0.99+)
+As of version 0.99, **Rare Affixes III** rolls are conditionally chained rather than independent. A subsequent affix slot is only given a 10% chance to roll as Rare if the preceding roll succeeded as Rare. Once a non-rare affix is rolled, no further rare affixes can be generated on that gear.
 
 ### Formula Complexity
-Each formula handles a specific `(slots_available, slots_selected)` scenario. For example, `calc4_2` calculates the probability of getting 2 desired affixes when 4 slots are available. The computation branches recursively on each draw outcome until reaching base cases (`calc1_1`, etc.).
+Each formula handles a specific `(slots_available, slots_selected)` scenario. For example, `calc4_3` calculates the probability of getting 3 desired affixes (`NrAsked`, `NuAsked`, `NcAsked`) when 4 slots are available. The computation branches recursively on each draw outcome (`r`/`R` for Rare, `u`/`U` for Uncommon, `c`/`C` for Common, lower unwanted, upper wanted) until reaching base cases (`calc1_1`).
 
-The code includes numerous conditional checks like `if (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p` because the success probability (p) depends on how many Rare affixes remain in the pool. Before attributing p/q values, several validations ensure we don't assign a Rare-success-rate when zero Rares exist. Similar logic applies for p1, p2, p3 (second, third, fourth Rare draws). This defensive programming makes the code harder to read but prevents invalid probability states.
+To model the v0.99 **Rare Affixes III** chaining rules without extra state flags, the engine dynamically passes the `upgrade` parameter down the recursive tree:
+- **When a Rare affix is drawn (`r` or `R`)**: The current `upgrade` tier (such as `3`) is preserved in the recursive call (`calc3_3(..., upgrade, ...)`), allowing the next slot to continue rolling for Rare affixes.
+- **When a Common or Uncommon affix is drawn (`c`, `C`, `u`, `U`)**: The recursive call downgrades `upgrade` to `0` (`calc3_3(..., 0, ...)`), immediately breaking the Rare chain (`p = 0`) for all subsequent slots.
+- **When Rare affixes are required (`NrAsked > 0`)**: Under `upgrade === 3`, any non-rare branch immediately fails (returns `0`), pruning all paths where the Rare chain breaks before all `NrAsked` affixes are obtained.
+
+Additionally, the code includes defensive checks like `const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;` to ensure `p` evaluates to `0` if the Rare affix pool (`Nr`) is exhausted, preventing invalid probability states.
 
 ### Uncommon Affixes
 When observing the frequency of generation of some affixes, it has been noticed that some of them were rarer than other: [see this message](https://discord.com/channels/1068465177139355658/1402764555091841024/1402764555091841024).

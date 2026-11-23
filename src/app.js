@@ -556,7 +556,7 @@ function updateAffixDisplay() {
 // ===== PROBABILITY CALCULATION =====
 function formatProbabilitySignificant(prob) {
   if (prob < 0) return 'Error (<0)';
-  if (prob > 1) return 'Error (>1)';
+  //if (prob > 1) return 'Error (>1)';
   
   const percentage = prob * 100;
   let decimalPlaces;
