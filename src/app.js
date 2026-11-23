@@ -25,6 +25,11 @@ async function loadData() {
     const lang = Settings.getLang();
     const langSuffix = lang === 'en' ? '' : `-${lang}`;
 
+    const pruneRemoved = (dataObj = {}) =>
+      Object.fromEntries(
+        Object.entries(dataObj).filter(([, item]) => !item.RemovedIn)
+      );
+
     const [weaponsRes, trinketsRes, affixesRes] = await Promise.all([
       fetch(`./data/weapons${langSuffix}.json`),
       fetch(`./data/trinkets${langSuffix}.json`),
@@ -41,9 +46,9 @@ async function loadData() {
       trinketsRes.json()
     ]);
 
-    weaponsData = weaponsRaw.Weapons || {};
-    affixesData = affixesRaw.Affixes || {};
-    trinketsData = trinketsRaw.Trinkets || {};
+    weaponsData = pruneRemoved(weaponsRaw.Weapons) || {};
+    affixesData = pruneRemoved(affixesRaw.Affixes) || {};
+    trinketsData = pruneRemoved(trinketsRaw.Trinkets) || {};
 
     console.log('Data loaded:', {
       weaponsCount: Object.keys(weaponsData).length,
