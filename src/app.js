@@ -26,9 +26,9 @@ async function loadData() {
     const langSuffix = lang === 'en' ? '' : `-${lang}`;
 
     const [weaponsRes, trinketsRes, affixesRes] = await Promise.all([
-      fetch(`./data/weapons${langSuffix}.json`),
-      fetch(`./data/trinkets${langSuffix}.json`),
-      fetch(`./data/affixes${langSuffix}.json`)
+      fetch(`../data/weapons${langSuffix}.json`),
+      fetch(`../data/trinkets${langSuffix}.json`),
+      fetch(`../data/affixes${langSuffix}.json`)
     ]);
 
     if (!weaponsRes.ok) throw new Error(`weapons${langSuffix}.json: ${weaponsRes.status}`);
