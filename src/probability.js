@@ -17,6 +17,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made
    */
   calc1_1: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = this.UPGRADE_CONFIG[upgrade].p;
     const q = (Nr < 1) ? 1 : 1 - p;
@@ -33,6 +34,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made (only 1 affix selected)
    */
   calc2_1: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) {  
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -84,6 +86,7 @@ window.ProbabilityCalculator = {
    * nrAsked, nuAsked, nCAsked must sum to slotsSelected
    */
   calc2_2: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = this.UPGRADE_CONFIG[upgrade].p;
     const q = (Nr < 1) ? 1 : 1 - p;
@@ -136,6 +139,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made (only 1 affix selected)
    */
   calc3_1: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -187,6 +191,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made (2 affixes selected)
    */
   calc3_2: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -260,6 +265,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made
    */
   calc3_3: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -321,6 +327,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made (only 1 affix selected)
    */
   calc4_1: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) {
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -371,6 +378,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made
    */
   calc4_2: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -444,6 +452,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made
    */
   calc4_3: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
@@ -537,6 +546,7 @@ window.ProbabilityCalculator = {
    * Returns probability of getting the selection made
    */
   calc4_4: function(Nr, Nu, Nc, upgrade, NrAsked, NuAsked, NcAsked) { 
+    if NrAsked > Nr return 0;
     const S = this.getPoolSize(Nc, Nu);
     const p = (Nr < 1) ? 0 : this.UPGRADE_CONFIG[upgrade].p;
     const q = 1 - p;
